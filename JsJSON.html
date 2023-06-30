@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON</title>
+
+    <!-- jquery cdn -->
+    <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+
+    <!-- data table cdn -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
+
+    <!-- simple pagination cdn -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/simplePagination.js/1.6/jquery.simplePagination.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simplePagination.js/1.6/simplePagination.min.css">
+
+</head>
+<body>
+    <h2>JSON</h2>
+    <script>
+        var phone = '{ "mobile_phone" : [' + 
+        '{ "company":"Apple", "name":"Iphone"},' +
+        '{ "company":"Xiaomi", "name":"Mi" },' +
+        '{ "company":"Asus", "name":"ROG"},'+
+        '{ "company":"Samsung", "name":"Galaxy" } ]}';
+        document.write(phone + "<br>");
+        var jsonphone = JSON.parse(phone);
+
+        document.write("index 0 of company data : " + jsonphone.mobile_phone[0].company + "<br>");
+        document.write("index 0 of name data : " + jsonphone.mobile_phone[0].name + "<br><br>");
+        document.write("index 1 of company data : " + jsonphone.mobile_phone[1].company + "<br>");
+        document.write("index 1 of name data : " + jsonphone.mobile_phone[1].name + "<br><br>");
+        document.write("index 2 of company data : " + jsonphone.mobile_phone[2].company + "<br>");
+        document.write("index 2 of name data : " + jsonphone.mobile_phone[2].name + "<br><br>");
+        document.write("index 3 of company data : " + jsonphone.mobile_phone[3].company + "<br>");
+        document.write("index 3 of name data : " + jsonphone.mobile_phone[3].name + "<br><br>");
+    </script>
+
+    <hr>
+    <script>
+        var mobile = '{ "phone" : [' + 
+        '{ "company":"Apple", "name":"Iphone", "model":"14pro max", "storage":"128gb", "productimage":"laptop1.webp" },' +
+        '{ "company":"Xiaomi", "name":"Mi", "model":"13 ultra", "storage":"256gb,12gb", "productimage":"laptop1.webp" },' +
+        '{ "company":"Asus", "name":"ROG", "model":"7 ultra", "storage":"256gb,16gb", "productimage":"laptop1.webp" },'+
+        '{ "company":"Samsung", "name":"Galaxy", "model":"23 ultra", "storage":"256gb,12gb", "productimage":"laptop1.webp" } ]}';
+        var phoneobj = JSON.parse(mobile);
+
+        document.write("Row count: " + phoneobj.phone.length + "<br>");
+        for (let index = 0; index < phoneobj.phone.length; index++) 
+        {   
+            document.write("Row index " + index + " and col company data : " + phoneobj.phone[index].company + "<br>");
+            document.write("Row index " + index + " and col name data : " + phoneobj.phone[index].name + "<br>");
+            document.write("Row index " + index + " and col model data : " + phoneobj.phone[index].model + "<br>");
+            document.write("Row index " + index + " and col storage data : " + phoneobj.phone[index].storage + "<br>");
+            document.write("<img src=' " + phoneobj.phone[index].productimage + " ' width='150px' height='150px'><br><br>");
+        }
+    </script>
+
+    <style>
+        .dataTables_wrapper .dataTables_filter input
+        {
+            outline: none;
+            padding: 6px;
+            background-color: transparent;
+            letter-spacing: 2px;
+            word-spacing: 4px;
+            margin-bottom: 10px;
+            border: 1px solid red;
+            color: rgba(0, 0, 0, .9);
+        }
+        .dataTables_wrapper .dataTables_filter label,#myTable_length label
+        {
+            font-family: calibri;
+            letter-spacing: 2px;
+            word-spacing: 4px;
+        }
+        #myTable
+        {
+            font-family: calibri;
+            letter-spacing: 2px;
+            word-spacing: 4px;
+        }
+        #myTable td{ height: 30px; }
+    </style>
+    <hr>
+    <h2>Phone List</h2>
+    <table id="myTable" class="display">
+        <thead>
+        <tr>
+            <th>No.</th>
+            <th>Company</th>
+            <th>Name</th>
+            <th>Model</th>
+            <th>Storage</th>
+        </tr>
+        </thead>
+        <tbody>
+            <script>
+                for (let index = 0; index < phoneobj.phone.length; index++) 
+                {   
+                    document.write("<tr>");
+                    document.write("<td>" + (index+1) + "</td>");
+                    document.write("<td>" + phoneobj.phone[index].company + "</td>");
+                    document.write("<td>" + phoneobj.phone[index].name + "</td>");
+                    document.write("<td>" + phoneobj.phone[index].model + "</td>");
+                    document.write("<td>" + phoneobj.phone[index].storage + "</td>");
+                    document.write("</tr>");
+                }
+
+                $(document).ready( function () {
+                    $('#myTable').DataTable();
+                } );
+            </script>
+        </tbody>
+    </table>
+
+    <style>
+        #product-dis
+        {
+            display: flex;
+            justify-content: space-around;
+            width: 70%;
+            margin: auto;
+            row-gap: 50px;
+            flex-wrap: wrap;
+        }
+        #product-dis > .item-dis
+        {
+            width: 360px;
+            padding: 10px;
+            box-shadow: 1px 1px 4px 4px grey;
+            border-radius: 20px;
+            font-family: calibri;
+            font-size: 13pt;
+            letter-spacing: 2px;
+            word-spacing: 4px;
+        }
+        td
+        {
+            text-align: center;
+        }
+        a
+        {
+            display: block;
+            width: fit-content;
+            margin: auto;
+            text-decoration: none;
+            color: white;
+            background-color: black;
+            padding: 8px 25px;
+            font-weight: bold;
+            border-radius: 8px;
+            border: 1px solid black;
+        }
+    </style>
+    <hr>
+    <h2 align="center">Product Display</h2>
+    <section id="product-dis">
+        <script>
+        for (let index = 0; index < phoneobj.phone.length; index++) 
+            {   
+                document.write("<div class='item-dis'>");
+                document.write("<img src = '" + phoneobj.phone[index].productimage + "' width='100%'>");
+                document.write("<table width='100%' height='180px'>");
+                    document.write("<tr>");
+                        document.write("<td>Company: </td>");
+                        document.write("<td>" + phoneobj.phone[index].company + "</td>");
+                    document.write("</tr>");
+                    document.write("<tr>");
+                        document.write("<td>Name: </td>");
+                        document.write("<td>" + phoneobj.phone[index].name + "</td>");
+                    document.write("</tr>");
+                    document.write("<tr>");
+                        document.write("<td>Model: </td>");
+                        document.write("<td>" + phoneobj.phone[index].model + "</td>");
+                    document.write("</tr>");
+                    document.write("<tr>");
+                        document.write("<td>Storage: </td>");
+                        document.write("<td>" + phoneobj.phone[index].storage + "</td>");
+                    document.write("</tr>");
+                    document.write("<tr>");
+                        document.write("<td colspan='2'><a href=''>More Detail</a></td>");
+                    document.write("</tr>");
+                document.write("</table>");
+                document.write("</div>");
+            }
+            </script>
+            </section>
+
+            <article id="pagination-container" style="margin: auto; width: fit-content; margin-top: 40px; margin-bottom: 40px;"></article>
+
+            <script>
+            var items = $('.item-dis');     //    => must be class
+            var numItems = items.length;
+            var perPage = 2;
+    
+            items.slice(perPage).hide();
+    
+            $(function() {
+                $('#pagination-container').pagination({
+                    items: numItems,
+                    itemsOnPage: perPage,
+                    cssStyle: 'dark-theme',
+                    onPageClick: function(pageNumber) {
+                        var showFrom = perPage * (pageNumber - 1);
+                        var showTo = showFrom + perPage;
+                        items.hide().slice(showFrom, showTo).show();
+                    }
+                });
+            });
+            </script>
+</body>
+</html>
